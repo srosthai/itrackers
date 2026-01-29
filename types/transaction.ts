@@ -20,6 +20,7 @@ export interface Transaction {
     receiptUrl?: string;
     createdAt: string;
     updatedAt: string;
+    [key: string]: unknown; // Index signature for Record<string, unknown> compatibility
 }
 
 export interface TransactionFormData {

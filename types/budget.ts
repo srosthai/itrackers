@@ -11,6 +11,7 @@ export interface Budget {
     spentAmount?: number; // Computed from transactions
     createdAt: string;
     updatedAt: string;
+    [key: string]: unknown; // Index signature for Record<string, unknown> compatibility
 }
 
 export interface BudgetFormData {
