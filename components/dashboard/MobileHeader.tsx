@@ -1,6 +1,6 @@
 // =====================================================
 // MOBILE HEADER COMPONENT
-// 
+//
 // Shows user greeting, avatar, notifications, settings
 // Mobile-first design
 // =====================================================
@@ -10,8 +10,10 @@
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Icons } from '@/components/ui';
+import { useLanguage } from '@/components/providers';
 
 export function MobileHeader() {
+    const { t } = useLanguage();
     const { data: session } = useSession();
 
     const userName = session?.user?.name || 'User';
@@ -39,27 +41,19 @@ export function MobileHeader() {
                     </div>
                 )}
                 <div>
-                    <p className="text-xs text-gray-500">Welcome back,</p>
+                    <p className="text-xs text-gray-500">{t('dashboard.welcome')}</p>
                     <p className="text-sm font-semibold text-white">{userName}</p>
                 </div>
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center gap-2">
-                <button
-                    className="w-10 h-10 rounded-full bg-[#1a2a1a] flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#243324] transition-colors relative"
-                    aria-label="Notifications"
-                >
-                    <Icons.Bell className="w-5 h-5" />
-                    {/* Notification dot */}
-                    <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#ef4444]" />
-                </button>
                 <Link
-                    href="/settings"
+                    href="/profile"
                     className="w-10 h-10 rounded-full bg-[#1a2a1a] flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#243324] transition-colors"
-                    aria-label="Settings"
+                    aria-label="Profile"
                 >
-                    <Icons.Cog className="w-5 h-5" />
+                    <Icons.User className="w-5 h-5" />
                 </Link>
             </div>
         </div>

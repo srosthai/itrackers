@@ -10,9 +10,9 @@
 import { useState, useEffect, useCallback } from 'react';
 
 interface DashboardStats {
-    income: { amount: number; change: number };
-    expense: { amount: number; change: number };
-    netProfit: { amount: number };
+    income: { amount: number; change: number | null };
+    expense: { amount: number; change: number | null };
+    netProfit: { amount: number; change: number | null };
     totalBalance: { amount: number };
 }
 
@@ -31,6 +31,7 @@ interface Transaction {
     date: string;
     amount: number;
     categoryId: string;
+    categoryName?: string;
     note: string;
 }
 
@@ -39,6 +40,9 @@ interface UseDashboardReturn {
     stats: DashboardStats | null;
     accounts: Account[];
     recentTransactions: Transaction[];
+    weeklySpending: number[];
+    dailySpending: number[];
+    monthlySpending: number[];
     month: string;
 
     // State
@@ -59,6 +63,9 @@ export function useDashboard(): UseDashboardReturn {
     const [stats, setStats] = useState<DashboardStats | null>(null);
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [recentTransactions, setRecentTransactions] = useState<Transaction[]>([]);
+    const [weeklySpending, setWeeklySpending] = useState<number[]>([0, 0, 0, 0]);
+    const [dailySpending, setDailySpending] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
+    const [monthlySpending, setMonthlySpending] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [showBalance, setShowBalance] = useState(true);
@@ -79,13 +86,16 @@ export function useDashboard(): UseDashboardReturn {
             setStats(data.stats);
             setAccounts(data.accounts || []);
             setRecentTransactions(data.recentTransactions || []);
+            setWeeklySpending(data.weeklySpending || [0, 0, 0, 0]);
+            setDailySpending(data.dailySpending || [0, 0, 0, 0, 0, 0, 0]);
+            setMonthlySpending(data.monthlySpending || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');
             // Set default data on error
             setStats({
-                income: { amount: 0, change: 0 },
-                expense: { amount: 0, change: 0 },
-                netProfit: { amount: 0 },
+                income: { amount: 0, change: null },
+                expense: { amount: 0, change: null },
+                netProfit: { amount: 0, change: null },
                 totalBalance: { amount: 0 },
             });
         } finally {
@@ -109,6 +119,9 @@ export function useDashboard(): UseDashboardReturn {
         stats,
         accounts,
         recentTransactions,
+        weeklySpending,
+        dailySpending,
+        monthlySpending,
         month,
         isLoading,
         error,

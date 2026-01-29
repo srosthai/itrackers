@@ -65,17 +65,468 @@
   --sidebar-collapsed: 80px;
 }
 
-/* Light Theme */
+/* Light Theme - Class based */
+html.light,
+html.light :root {
+  --background: #f8fafc;
+  --background-secondary: #ffffff;
+  --background-tertiary: #f1f5f9;
+  --foreground: #0f172a;
+  --foreground-muted: #64748b;
+  --foreground-subtle: #94a3b8;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+/* Light mode specific overrides for hardcoded colors */
+html.light {
+  /* Override green-themed backgrounds */
+  --green-bg: #f0fdf4;
+  --green-border: #bbf7d0;
+}
+
+/* ========================================
+   BACKGROUND COLORS - Light Mode
+   ======================================== */
+
+/* Main page backgrounds */
+html.light .bg-\[\#0a0f0a\] {
+  background-color: #f8fafc !important;
+}
+
+html.light .bg-\[\#0a0f0a\]\/95 {
+  background-color: rgba(248, 250, 252, 0.95) !important;
+}
+
+/* Card backgrounds */
+html.light .bg-\[\#0f1610\] {
+  background-color: #ffffff !important;
+}
+
+/* Secondary backgrounds */
+html.light .bg-\[\#1a2a1a\] {
+  background-color: #f1f5f9 !important;
+}
+
+/* Tertiary/darker backgrounds */
+html.light .bg-\[\#0a1209\] {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .bg-\[\#0d1610\] {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-\[\#081408\] {
+  background-color: #f8fafc !important;
+}
+
+/* Hover states */
+html.light .hover\:bg-\[\#0d1610\]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .hover\:bg-\[\#243324\]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Stats row specific backgrounds */
+html.light .bg-\[\#0d1f12\] {
+  background-color: #f0fdf4 !important;
+}
+
+html.light .bg-\[\#1f120d\] {
+  background-color: #fef2f2 !important;
+}
+
+html.light .bg-\[\#12171f\] {
+  background-color: #f0f9ff !important;
+}
+
+/* ========================================
+   BORDER COLORS - Light Mode
+   ======================================== */
+
+html.light .border-\[\#1a2f1a\] {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-\[\#2a3f2a\] {
+  border-color: #cbd5e1 !important;
+}
+
+html.light .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ========================================
+   TEXT COLORS - Light Mode
+   ======================================== */
+
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-gray-400 {
+  color: #64748b !important;
+}
+
+html.light .text-gray-400\/80 {
+  color: rgba(100, 116, 139, 0.8) !important;
+}
+
+html.light .text-gray-500 {
+  color: #64748b !important;
+}
+
+html.light .text-gray-600 {
+  color: #475569 !important;
+}
+
+html.light .placeholder\:text-gray-500::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Hover text states */
+html.light .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+
+html.light .hover\:text-gray-300:hover {
+  color: #334155 !important;
+}
+
+/* ========================================
+   GRADIENT BACKGROUNDS - Light Mode
+   ======================================== */
+
+/* Balance card gradient */
+html.light .bg-gradient-to-br.from-\[\#0d1f12\].via-\[\#0a1a0f\].to-\[\#081408\] {
+  background: linear-gradient(to bottom right, #f0fdf4, #ecfdf5, #f8fafc) !important;
+}
+
+/* Bottom navigation gradient */
+html.light .bg-gradient-to-t.from-\[\#0a0f0a\].via-\[\#0a0f0a\]\/95.to-transparent {
+  background: linear-gradient(to top, #f8fafc, rgba(248, 250, 252, 0.95), transparent) !important;
+}
+
+/* ========================================
+   SVG/CHART ELEMENTS - Light Mode
+   ======================================== */
+
+html.light line[stroke="#1a2f1a"] {
+  stroke: #e2e8f0 !important;
+}
+
+html.light rect[fill="#1a2f1a"] {
+  fill: #e2e8f0 !important;
+}
+
+/* ========================================
+   MODAL/OVERLAY - Light Mode
+   ======================================== */
+
+html.light .bg-black\/80 {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ========================================
+   SCROLLBAR - Light Mode
+   ======================================== */
+
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ========================================
+   FORM ELEMENTS - Light Mode
+   ======================================== */
+
+/* Form inputs */
+html.light input[type="text"],
+html.light input[type="number"],
+html.light input[type="email"],
+html.light input[type="password"],
+html.light input[type="date"],
+html.light input[type="search"],
+html.light textarea {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html.light input:focus,
+html.light textarea:focus {
+  border-color: #22c55e !important;
+}
+
+/* Date input color scheme */
+html.light input[type="date"] {
+  color-scheme: light !important;
+}
+
+/* Select dropdown text */
+html.light .text-gray-300 {
+  color: #334155 !important;
+}
+
+/* Scrollbar for dropdowns */
+html.light .scrollbar-thumb-gray-700 {
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* ========================================
+   INTERACTIVE STATES - Light Mode
+   ======================================== */
+
+/* Focus states with green border */
+html.light .focus\:border-\[\#22c55e\]:focus {
+  border-color: #22c55e !important;
+}
+
+/* Active/selected dropdown options */
+html.light .hover\:bg-\[\#22c55e\]\/10:hover {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+}
+
+html.light .bg-\[\#22c55e\]\/5 {
+  background-color: rgba(34, 197, 94, 0.08) !important;
+}
+
+/* ========================================
+   COMPONENT-SPECIFIC - Light Mode
+   ======================================== */
+
+/* Transaction item hover */
+html.light .hover\:bg-\[\#0f1610\]:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* Category list item */
+html.light .bg-\[\#0f1610\]\/50 {
+  background-color: rgba(241, 245, 249, 0.5) !important;
+}
+
+html.light .hover\:bg-\[\#1f2f1f\]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .hover\:bg-\[\#1a2a1a\]\/50:hover {
+  background-color: rgba(226, 232, 240, 0.5) !important;
+}
+
+html.light .border-\[\#2a3f2a\]\/50 {
+  border-color: rgba(226, 232, 240, 0.5) !important;
+}
+
+/* Stats row background opacity variants */
+html.light .bg-\[\#22c55e\]\/10 {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+}
+
+html.light .bg-\[\#ef4444\]\/10 {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+html.light .bg-\[\#3b82f6\]\/10 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+/* ========================================
+   SHADOWS - Light Mode
+   ======================================== */
+
+html.light .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light .shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ========================================
+   LOGIN/REGISTER PAGES - Light Mode
+   ======================================== */
+
+html.light .from-\[\#0a0f0a\] {
+  --tw-gradient-from: #f8fafc !important;
+}
+
+html.light .to-\[\#0d1610\] {
+  --tw-gradient-to: #ffffff !important;
+}
+
+/* ========================================
+   LOGIN/REGISTER PAGE SPECIFIC - Light Mode
+   ======================================== */
+
+/* Form input backgrounds */
+html.light .bg-\[\#1a1f1a\] {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-\[\#1a1f1a\]\/50 {
+  background-color: rgba(241, 245, 249, 0.5) !important;
+}
+
+/* Form borders */
+html.light .border-\[\#2a2f2a\] {
+  border-color: #e2e8f0 !important;
+}
+
+/* Hover states */
+html.light .hover\:bg-\[\#252a25\]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Dividers */
+html.light .bg-\[\#2a2f2a\] {
+  background-color: #e2e8f0 !important;
+}
+
+/* Security badge icon */
+html.light .bg-gray-600 {
+  background-color: #94a3b8 !important;
+}
+
+/* ========================================
+   FOCUS RING - Light Mode
+   ======================================== */
+
+html.light .focus\:ring-\[\#22c55e\]:focus {
+  --tw-ring-color: rgba(34, 197, 94, 0.5) !important;
+}
+
+/* ========================================
+   LANDING PAGE - Light Mode
+   ======================================== */
+
+/* Header backdrop */
+html.light .bg-\[\#0a0f0a\]\/80 {
+  background-color: rgba(248, 250, 252, 0.9) !important;
+}
+
+/* CTA section gradient */
+html.light .bg-gradient-to-br.from-\[\#1a2a1a\].to-\[\#0f1610\] {
+  background: linear-gradient(to bottom right, #f0fdf4, #ecfdf5) !important;
+}
+
+/* Hero section gradient overlay */
+html.light .bg-gradient-to-b.from-\[\#22c55e\]\/5 {
+  background: linear-gradient(to bottom, rgba(34, 197, 94, 0.08), transparent, transparent) !important;
+}
+
+/* Decorative blur elements */
+html.light .bg-\[\#22c55e\]\/10 {
+  background-color: rgba(34, 197, 94, 0.12) !important;
+}
+
+html.light .bg-\[\#22c55e\]\/5 {
+  background-color: rgba(34, 197, 94, 0.08) !important;
+}
+
+/* CTA section border */
+html.light .border-\[\#22c55e\]\/20 {
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+/* Feature card hover borders */
+html.light .hover\:border-\[\#22c55e\]\/50:hover {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+}
+
+html.light .hover\:border-\[\#ef4444\]\/50:hover {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+html.light .hover\:border-\[\#3b82f6\]\/50:hover {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Feature icon backgrounds on hover */
+html.light .group-hover\:bg-\[\#22c55e\]\/20 {
+  background-color: rgba(34, 197, 94, 0.2) !important;
+}
+
+html.light .group-hover\:bg-\[\#ef4444\]\/20 {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+html.light .group-hover\:bg-\[\#3b82f6\]\/20 {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+/* ========================================
+   ANIMATIONS - Light Mode
+   ======================================== */
+
+@keyframes scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-up {
+  animation: scale-up 0.2s ease-out forwards;
+}
+
+/* No scrollbar utility */
+.noscroll::-webkit-scrollbar {
+  display: none;
+}
+
+.noscroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Light Theme - Media query fallback */
 @media (prefers-color-scheme: light) {
-  :root {
-    --background: #fafafa;
+  :root:not(.dark) {
+    --background: #f8fafc;
     --background-secondary: #ffffff;
-    --background-tertiary: #f5f5f5;
-    --foreground: #0f0f0f;
-    --foreground-muted: #6b6b6b;
-    --foreground-subtle: #a0a0a0;
-    --border: #e5e5e5;
-    --border-hover: #d4d4d4;
+    --background-tertiary: #f1f5f9;
+    --foreground: #0f172a;
+    --foreground-muted: #64748b;
+    --foreground-subtle: #94a3b8;
+    --border: #e2e8f0;
+    --border-hover: #cbd5e1;
     --glass-bg: rgba(0, 0, 0, 0.02);
     --glass-border: rgba(0, 0, 0, 0.06);
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);

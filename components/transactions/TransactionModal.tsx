@@ -16,9 +16,10 @@ interface TransactionModalProps {
     onClose: () => void;
     onSave: (data: Partial<Transaction>) => Promise<boolean>;
     initialData?: Transaction;
+    defaultType?: 'expense' | 'income';
 }
 
-export function TransactionModal({ isOpen, onClose, onSave, initialData }: TransactionModalProps) {
+export function TransactionModal({ isOpen, onClose, onSave, initialData, defaultType = 'expense' }: TransactionModalProps) {
     const [type, setType] = useState<'expense' | 'income'>('expense');
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
@@ -40,13 +41,13 @@ export function TransactionModal({ isOpen, onClose, onSave, initialData }: Trans
             setNote(initialData.note || '');
         } else {
             // Default state
-            setType('expense');
+            setType(defaultType);
             setAmount('');
             setDate(new Date().toISOString().split('T')[0]);
             setCategoryId('');
             setNote('');
         }
-    }, [initialData, isOpen]);
+    }, [initialData, isOpen, defaultType]);
 
     if (!isOpen) return null;
 

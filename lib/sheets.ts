@@ -15,7 +15,6 @@ export const SHEETS = {
     TRANSACTIONS: 'transactions',
     RECURRING_RULES: 'recurring_rules',
     BUDGETS: 'budgets',
-    SMART_RULES: 'smart_rules',
 } as const;
 
 export type SheetName = (typeof SHEETS)[keyof typeof SHEETS];
@@ -49,10 +48,6 @@ export const SHEET_COLUMNS = {
     budgets: [
         'budgetId', 'userId', 'month', 'categoryId',
         'limitAmount', 'createdAt', 'updatedAt'
-    ],
-    smart_rules: [
-        'ruleId', 'userId', 'pattern', 'categoryId',
-        'active', 'createdAt', 'updatedAt'
     ],
 } as const;
 
@@ -395,7 +390,7 @@ export async function countRows<T extends Record<string, unknown>>(
 export async function updateSheetHeaders(sheetName: SheetName): Promise<void> {
     const sheets = await getSheetsClient();
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-    
+
     if (!spreadsheetId) return;
 
     const columns = SHEET_COLUMNS[sheetName];

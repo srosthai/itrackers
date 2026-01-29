@@ -11,6 +11,7 @@ import {
     FloatingActionButton,
 } from '@/components/dashboard';
 import { Icons } from '@/components/ui';
+import { useLanguage } from '@/components/providers';
 
 // =====================================================
 // DASHBOARD PAGE
@@ -26,10 +27,14 @@ import { Icons } from '@/components/ui';
 // =====================================================
 
 export default function DashboardPage() {
+    const { t } = useLanguage();
     const {
         stats,
         accounts,
         recentTransactions,
+        weeklySpending,
+        dailySpending,
+        monthlySpending,
         isLoading,
         showBalance,
         toggleBalanceVisibility,
@@ -73,6 +78,7 @@ export default function DashboardPage() {
                             }}
                             profit={{
                                 amount: stats?.netProfit.amount || 0,
+                                change: stats?.netProfit.change,
                             }}
                         />
                     </div>
@@ -82,11 +88,14 @@ export default function DashboardPage() {
                         <SpendingChart
                             amount={stats?.expense.amount || 0}
                             change={stats?.expense.change || 0}
+                            weeklyData={weeklySpending}
+                            dailyData={dailySpending}
+                            monthlyData={monthlySpending}
                         />
                     </div>
 
                     {/* Recent Transactions */}
-                    <RecentTransactions transactions={recentTransactions} limit={5} />
+                    <RecentTransactions transactions={recentTransactions} limit={5} t={t} />
                 </div>
 
                 {/* Bottom Navigation */}
@@ -102,6 +111,9 @@ export default function DashboardPage() {
                     stats={stats}
                     accounts={[]}
                     recentTransactions={recentTransactions}
+                    weeklySpending={weeklySpending}
+                    dailySpending={dailySpending}
+                    monthlySpending={monthlySpending}
                     totalBalance={totalBalance}
                     showBalance={showBalance}
                     toggleBalanceVisibility={toggleBalanceVisibility}
@@ -119,6 +131,9 @@ interface DesktopDashboardProps {
     stats: ReturnType<typeof useDashboard>['stats'];
     accounts: ReturnType<typeof useDashboard>['accounts'];
     recentTransactions: ReturnType<typeof useDashboard>['recentTransactions'];
+    weeklySpending: number[];
+    dailySpending: number[];
+    monthlySpending: number[];
     totalBalance: number;
     showBalance: boolean;
     toggleBalanceVisibility: () => void;
@@ -128,17 +143,21 @@ function DesktopDashboard({
     stats,
     accounts,
     recentTransactions,
+    weeklySpending,
+    dailySpending,
+    monthlySpending,
     totalBalance,
     showBalance,
     toggleBalanceVisibility,
 }: DesktopDashboardProps) {
-    const currentMonth = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const { t, language } = useLanguage();
+    const currentMonth = new Date().toLocaleDateString(language === 'km' ? 'km-KH' : 'en-US', { month: 'long', year: 'numeric' });
 
     return (
         <div className="p-6 max-w-7xl mx-auto">
             {/* Page Header */}
             <div className="mb-6">
-                <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+                <h1 className="text-2xl font-bold text-white">{t('dashboard.title')}</h1>
                 <p className="text-gray-500">{currentMonth}</p>
             </div>
 
@@ -158,20 +177,21 @@ function DesktopDashboard({
                 <div className="xl:col-span-2">
                     <div className="grid grid-cols-3 gap-4 h-full">
                         <StatCard
-                            label="Total Income"
+                            label={t('dashboard.income')}
                             amount={stats?.income.amount || 0}
                             change={stats?.income.change}
                             type="income"
                         />
                         <StatCard
-                            label="Total Expense"
+                            label={t('dashboard.expense')}
                             amount={stats?.expense.amount || 0}
                             change={stats?.expense.change}
                             type="expense"
                         />
                         <StatCard
-                            label="Net Profit"
+                            label={t('dashboard.profit')}
                             amount={stats?.netProfit.amount || 0}
+                            change={stats?.netProfit.change}
                             type="profit"
                         />
                     </div>
@@ -185,8 +205,11 @@ function DesktopDashboard({
                     <SpendingChart
                         amount={stats?.expense.amount || 0}
                         change={stats?.expense.change || 0}
+                        weeklyData={weeklySpending}
+                        dailyData={dailySpending}
+                        monthlyData={monthlySpending}
                     />
-                    <RecentTransactions transactions={recentTransactions} limit={6} />
+                    <RecentTransactions transactions={recentTransactions} limit={6} t={t} />
                 </div>
 
                 {/* Removed Accounts Card Column */}
@@ -206,7 +229,7 @@ function DesktopDashboard({
 interface StatCardProps {
     label: string;
     amount: number;
-    change?: number;
+    change?: number | null;
     type: 'income' | 'expense' | 'profit';
 }
 
@@ -236,7 +259,7 @@ function StatCard({ label, amount, change, type }: StatCardProps) {
             </div>
             <div>
                 <p className={`text-2xl font-bold ${config.text}`}>{formattedAmount}</p>
-                {change !== undefined && (
+                {change !== undefined && change !== null && (
                     <p className={`text-sm mt-1 ${change >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
                         {change >= 0 ? '+' : ''}{change.toFixed(1)}% vs last month
                     </p>

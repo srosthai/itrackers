@@ -1,6 +1,6 @@
 // =====================================================
 // BOTTOM NAVIGATION COMPONENT
-// 
+//
 // Mobile bottom tab bar
 // Only shows on mobile, hidden on desktop
 // =====================================================
@@ -10,22 +10,24 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Icons } from '@/components/ui';
+import { useLanguage } from '@/components/providers';
 
 interface NavItem {
-    label: string;
+    labelKey: string;
     href: string;
     icon: keyof typeof Icons;
 }
 
 const navItems: NavItem[] = [
-    { label: 'Home', href: '/dashboard', icon: 'Home' },
-    { label: 'Insights', href: '/transactions', icon: 'ChartBar' },
-    { label: 'Categories', href: '/settings/categories', icon: 'Tag' },
-    { label: 'Profile', href: '/settings', icon: 'User' },
+    { labelKey: 'nav.home', href: '/dashboard', icon: 'Home' },
+    { labelKey: 'nav.insights', href: '/transactions', icon: 'ChartBar' },
+    { labelKey: 'nav.categories', href: '/categories', icon: 'Tag' },
+    { labelKey: 'nav.profile', href: '/profile', icon: 'User' },
 ];
 
 export function BottomNavigation() {
     const pathname = usePathname();
+    const { t } = useLanguage();
 
     return (
         <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
@@ -37,12 +39,7 @@ export function BottomNavigation() {
                 <div className="flex items-center justify-between py-2">
                     {navItems.map((item) => {
                         const Icon = Icons[item.icon];
-                        let isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
-
-                        // Fix: Prevent 'Profile' (/settings) from being active when on 'Categories' (/settings/categories)
-                        if (item.href === '/settings' && pathname?.includes('/categories')) {
-                            isActive = false;
-                        }
+                        const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
 
                         return (
                             <Link
@@ -54,7 +51,7 @@ export function BottomNavigation() {
                                     }`}
                             >
                                 <Icon className="w-5 h-5" />
-                                <span className="text-[10px] font-medium truncate w-full text-center">{item.label}</span>
+                                <span className="text-[10px] font-medium truncate w-full text-center">{t(item.labelKey)}</span>
                             </Link>
                         );
                     })}

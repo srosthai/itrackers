@@ -1,19 +1,19 @@
 // =====================================================
 // BALANCE CARD COMPONENT
-// 
+//
 // Shows total balance with card design
-// Features: Hide/show balance, premium badge, card number
+// Features: Hide/show balance, premium badge
 // =====================================================
 
 'use client';
 
 import { Icons } from '@/components/ui';
+import { useLanguage } from '@/components/providers';
 
 interface BalanceCardProps {
     balance: number;
     showBalance: boolean;
     onToggleVisibility: () => void;
-    cardNumber?: string;
     isPremium?: boolean;
 }
 
@@ -21,9 +21,9 @@ export function BalanceCard({
     balance,
     showBalance,
     onToggleVisibility,
-    cardNumber = '••••  ••••  ••••  8824',
     isPremium = false,
 }: BalanceCardProps) {
+    const { t } = useLanguage();
     const formattedBalance = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -39,7 +39,7 @@ export function BalanceCard({
             <div className="relative z-10">
                 {/* Header with Premium Badge */}
                 <div className="flex items-center justify-between mb-4">
-                    <p className="text-sm text-gray-400/80">Total Balance</p>
+                    <p className="text-sm text-gray-400/80">{t('dashboard.totalBalance')}</p>
                     {isPremium && (
                         <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-[#22c55e]/20 text-[#22c55e] border border-[#22c55e]/30">
                             Premium
@@ -48,7 +48,7 @@ export function BalanceCard({
                 </div>
 
                 {/* Balance Amount */}
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-3">
                     <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
                         {showBalance ? formattedBalance : '••••••••'}
                     </h2>
@@ -63,18 +63,6 @@ export function BalanceCard({
                             <Icons.EyeOff className="w-5 h-5" />
                         )}
                     </button>
-                </div>
-
-                {/* Card Info */}
-                <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-500 font-mono tracking-widest">
-                        {cardNumber}
-                    </p>
-                    {/* Mastercard-style circles */}
-                    <div className="flex -space-x-2">
-                        <div className="w-8 h-8 rounded-full bg-red-500/90" />
-                        <div className="w-8 h-8 rounded-full bg-yellow-500/90" />
-                    </div>
                 </div>
             </div>
         </div>

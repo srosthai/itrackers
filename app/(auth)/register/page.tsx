@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRegisterForm } from '@/hooks';
 import { Icons } from '@/components/ui';
 
@@ -100,8 +101,6 @@ export default function RegisterPage() {
                     </Link>
                 </p>
 
-                {/* Security Badge */}
-                <SecurityBadge />
             </main>
         </div>
     );
@@ -131,9 +130,14 @@ function Header() {
 function WelcomeSection() {
     return (
         <div className="flex flex-col items-center pt-6 pb-8">
-            <div className="w-16 h-16 rounded-2xl bg-[#22c55e] flex items-center justify-center mb-4 shadow-lg shadow-[#22c55e]/20">
-                <Icons.Wallet className="w-8 h-8 text-white" />
-            </div>
+            <Image
+                src="/i-tracker.png"
+                alt="I-Tracker"
+                width={160}
+                height={48}
+                className="h-10 w-auto mb-4"
+                priority
+            />
             <h2 className="text-2xl font-bold text-white mb-2">Create Account</h2>
             <p className="text-gray-400 text-center text-sm">
                 Start your journey to financial freedom
@@ -364,13 +368,3 @@ function GoogleIcon() {
     );
 }
 
-function SecurityBadge() {
-    return (
-        <div className="flex items-center justify-center gap-2 mt-auto pt-6">
-            <div className="w-2 h-2 rounded-full bg-gray-600" />
-            <span className="text-xs text-gray-600 tracking-wider uppercase">
-                Bank-Level 256-Bit Encryption
-            </span>
-        </div>
-    );
-}

@@ -1,6 +1,6 @@
 // =====================================================
 // STATS ROW COMPONENT
-// 
+//
 // Shows Income, Expenses, Profit in a row
 // Responsive: 3 columns on all sizes
 // =====================================================
@@ -8,11 +8,12 @@
 'use client';
 
 import { Icons } from '@/components/ui';
+import { useLanguage } from '@/components/providers';
 
 interface StatItemProps {
     label: string;
     amount: number;
-    change?: number;
+    change?: number | null;
     type: 'income' | 'expense' | 'profit';
 }
 
@@ -20,8 +21,8 @@ function StatItem({ label, amount, change, type }: StatItemProps) {
     const formattedAmount = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
     }).format(Math.abs(amount));
 
     const colors = {
@@ -59,9 +60,9 @@ function StatItem({ label, amount, change, type }: StatItemProps) {
             <p className={`text-lg sm:text-xl font-bold ${config.text}`}>
                 {formattedAmount}
             </p>
-            {change !== undefined && (
+            {change !== undefined && change !== null && (
                 <p className={`text-xs mt-1 ${change >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
-                    {change >= 0 ? '+' : ''}{change.toFixed(0)}%
+                    {change >= 0 ? '+' : ''}{change.toFixed(1)}%
                 </p>
             )}
         </div>
@@ -69,29 +70,32 @@ function StatItem({ label, amount, change, type }: StatItemProps) {
 }
 
 interface StatsRowProps {
-    income: { amount: number; change?: number };
-    expense: { amount: number; change?: number };
-    profit: { amount: number };
+    income: { amount: number; change?: number | null };
+    expense: { amount: number; change?: number | null };
+    profit: { amount: number; change?: number | null };
 }
 
 export function StatsRow({ income, expense, profit }: StatsRowProps) {
+    const { t } = useLanguage();
+
     return (
         <div className="grid grid-cols-3 gap-3">
             <StatItem
-                label="Income"
+                label={t('dashboard.income')}
                 amount={income.amount}
                 change={income.change}
                 type="income"
             />
             <StatItem
-                label="Expenses"
+                label={t('dashboard.expense')}
                 amount={expense.amount}
                 change={expense.change}
                 type="expense"
             />
             <StatItem
-                label="Profit"
+                label={t('dashboard.profit')}
                 amount={profit.amount}
+                change={profit.change}
                 type="profit"
             />
         </div>

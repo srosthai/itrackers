@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💰 Budget Tracker
 
-## Getting Started
+> Personal Budget Tracker with Google Sheets as Database
 
-First, run the development server:
+A mobile-first personal finance application built with Next.js 16, Auth.js, and Google Sheets API. Track your income and expenses with a beautiful, modern interface.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Auth.js](https://img.shields.io/badge/Auth.js-v5-purple)
+
+---
+
+## ✨ Features
+
+### Core Features
+- 📊 **Dashboard** - View total income, expenses, and net profit at a glance
+- 💸 **Transactions** - Add, edit, and delete income/expense records
+- 🏷️ **Categories** - Organize transactions with custom categories
+- 📅 **Recurring Rules** - Set up automatic recurring transactions
+- 🔐 **Authentication** - Secure login with Google OAuth or email/password
+
+### UI/UX
+- 📱 **Mobile-first design** - Optimized for mobile devices
+- 🌙 **Dark theme** - Beautiful dark green color scheme
+- ⚡ **Fast & responsive** - Optimized performance
+- 🎨 **Modern UI** - Glassmorphism and smooth animations
+
+---
+
+## 🚫 Removed Features
+
+The following features were removed to simplify the application:
+
+- ❌ **Accounts/Wallets** - Simplified to single wallet model
+- ❌ **Smart Rules** - Auto-categorization feature removed
+- ❌ **Notifications** - Push notifications removed
+- ❌ **Transfers** - Account-to-account transfers removed
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Framework** | Next.js 16 (App Router) |
+| **Authentication** | Auth.js (NextAuth v5) |
+| **Database** | Google Sheets API |
+| **Styling** | Tailwind CSS |
+| **Language** | TypeScript |
+
+---
+
+## 📁 Project Structure
+
+```
+budget-tracker/
+├── app/
+│   ├── (auth)/           # Login & Register pages
+│   ├── (dashboard)/      # Main app pages
+│   │   ├── dashboard/
+│   │   ├── transactions/
+│   │   ├── categories/
+│   │   └── settings/
+│   └── api/              # API routes
+├── components/
+│   ├── dashboard/        # Dashboard components
+│   ├── transactions/     # Transaction components
+│   ├── settings/         # Settings components
+│   └── ui/               # Shared UI components
+├── hooks/                # Custom React hooks
+├── lib/                  # Utilities & configs
+└── public/               # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+- Node.js 18+
+- Google Cloud account
+- Google Sheets API enabled
 
-To learn more about Next.js, take a look at the following resources:
+### Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a `.env.local` file:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key
 
-## Deploy on Vercel
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Google Sheets
+GOOGLE_SHEETS_SPREADSHEET_ID=your-spreadsheet-id
+GOOGLE_SHEETS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+GOOGLE_SHEETS_CLIENT_EMAIL=your-service-account@project.iam.gserviceaccount.com
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Installation
+
+```bash
+# Install dependencies
+yarn install
+
+# Run development server
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the app.
+
+---
+
+## 📊 Database Schema (Google Sheets)
+
+### Sheets
+
+| Sheet | Description |
+|-------|-------------|
+| `users` | User accounts & preferences |
+| `categories` | Income & expense categories |
+| `transactions` | All financial transactions |
+| `recurring_rules` | Recurring transaction rules |
+| `budgets` | Monthly budget limits |
+
+---
+
+## 🔒 Security
+
+- Passwords hashed with bcrypt
+- All API routes validate user session
+- Data isolated by userId
+- Secure HTTP-only cookies
+
+---
+
+## 📱 Screenshots
+
+The app features a modern, mobile-first dark theme design with:
+- Gradient balance cards
+- Smooth animations
+- Touch-friendly interactions
+- Bottom navigation for mobile
+
+---
+
+## 📝 Documentation
+
+For detailed implementation notes, see:
+- [BUILD_PLAN.md](./BUILD_PLAN.md) - Complete build plan & architecture
+
+---
+
+## 📄 License
+
+MIT License - feel free to use for personal projects.
+
+---
+
+*Built with ❤️ using Next.js and Google Sheets*

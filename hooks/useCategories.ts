@@ -113,10 +113,21 @@ export function useCategories(): UseCategoriesReturn {
         }
     };
 
-    // Derived state: Split by type and handle nesting if needed
-    // For now, assuming flat list or simplenesting
-    const expenseCategories = categories.filter(c => c.type === 'expense');
-    const incomeCategories = categories.filter(c => c.type === 'income');
+    // Helper function to build nested category structure
+    const buildNestedCategories = (cats: Category[]): Category[] => {
+        // Get all parent categories (those without parentCategoryId)
+        const parentCats = cats.filter(c => !c.parentCategoryId);
+
+        // Attach subcategories to their parents
+        return parentCats.map(parent => ({
+            ...parent,
+            subcategories: cats.filter(c => c.parentCategoryId === parent.categoryId)
+        }));
+    };
+
+    // Derived state: Split by type and build nested structure
+    const expenseCategories = buildNestedCategories(categories.filter(c => c.type === 'expense'));
+    const incomeCategories = buildNestedCategories(categories.filter(c => c.type === 'income'));
 
     return {
         categories,

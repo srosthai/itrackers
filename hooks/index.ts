@@ -1,6 +1,5 @@
 export * from './useTransactions';
 export * from './useCategories';
-export * from './useSmartRules';
 export * from './useAccounts';
 export * from './useDashboard';
 export * from './useLoginForm';

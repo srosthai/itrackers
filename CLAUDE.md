@@ -25,10 +25,16 @@
 
 A personal budget tracker application that allows users to:
 - Track income and expenses
-- Manage multiple accounts/wallets
+- ~~Manage multiple accounts/wallets~~ *(Removed - simplified to single wallet)*
 - View financial dashboards
 - Set budgets and recurring transactions
 - Export/import transaction data
+
+**Removed Features:**
+- ❌ Accounts/Wallets management
+- ❌ Smart Rules (auto-categorization)
+- ❌ Notifications
+- ❌ Transfers between accounts
 
 **Key Constraint**: Using Google Sheets as the database for simplicity and accessibility.
 
@@ -84,15 +90,18 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Feature 3 — Accounts / Wallets
+### ~~Feature 3 — Accounts / Wallets~~ ❌ REMOVED
 
-**What it does:**
-- Create accounts: Cash, ABA, ACLEDA, eWallet, Credit Card
-- Track current balance (computed from transactions)
-- Transfer between accounts
+> **Status**: Removed from implementation to simplify the app.
+> The app now uses a single implicit wallet model.
 
-**Sheets Involved:**
-- `accounts`
+~~**What it does:**~~
+~~- Create accounts: Cash, ABA, ACLEDA, eWallet, Credit Card~~
+~~- Track current balance (computed from transactions)~~
+~~- Transfer between accounts~~
+
+~~**Sheets Involved:**~~
+~~- `accounts`~~
 
 ---
 
@@ -155,38 +164,21 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Feature 8 — Recurring Transactions (Optional - Pro Feature)
+### ~~Feature 8 — Recurring Transactions (Optional - Pro Feature)~~ ❌ REMOVED
 
-**What it does:**
-- Auto-create transactions monthly (rent, salary, subscriptions)
-- "Next run date" tracking
-
-**Sheets Involved:**
-- `recurring_rules`
-- Generated rows in `transactions`
+> **Status**: Removed from implementation.
 
 ---
 
-### Feature 9 — Budgets (Optional)
+### ~~Feature 9 — Budgets (Optional)~~ ❌ REMOVED
 
-**What it does:**
-- Monthly budgets per category
-- Alerts at 80% and 100%
-
-**Sheets Involved:**
-- `budgets`
+> **Status**: Removed from implementation.
 
 ---
 
-### Feature 10 — Export / Import
+### ~~Feature 10 — Export / Import~~ ❌ REMOVED
 
-**What it does:**
-- Export CSV (all transactions or filtered)
-- Import CSV template
-
-**Sheets Involved:**
-- Uses `transactions` data
-- Import creates new rows
+> **Status**: Removed from implementation.
 
 ---
 
@@ -362,19 +354,9 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Sheet: `accounts`
+### ~~Sheet: `accounts`~~ ❌ REMOVED
 
-| Column | Example |
-|--------|---------|
-| accountId | `acc_...` |
-| userId | `usr_...` |
-| name | `Cash` |
-| type | `cash` / `bank` / `ewallet` / `credit` |
-| currency | `USD` |
-| startingBalance | `100` |
-| note | `...` |
-| createdAt | ISO |
-| updatedAt | ISO |
+> **Status**: Removed from implementation.
 
 ---
 
@@ -398,14 +380,14 @@ A personal budget tracker application that allows users to:
 |--------|---------|-------|
 | transactionId | `txn_...` | UUID |
 | userId | `usr_...` | required |
-| type | `income` / `expense` / `transfer` | |
+| type | `income` / `expense` | ~~transfer removed~~ |
 | date | `2026-01-29` | store as ISO date |
 | amount | `12.50` | positive number |
 | currency | `USD` | |
-| accountId | `acc_...` | for income/expense |
-| categoryId | `cat_...` | null for transfer |
-| fromAccountId | `acc_...` | for transfer only |
-| toAccountId | `acc_...` | for transfer only |
+| ~~accountId~~ | ~~`acc_...`~~ | ~~removed~~ |
+| categoryId | `cat_...` | |
+| ~~fromAccountId~~ | ~~`acc_...`~~ | ~~removed~~ |
+| ~~toAccountId~~ | ~~`acc_...`~~ | ~~removed~~ |
 | note | `Lunch` | |
 | tags | `food,work` | comma separated |
 | receiptUrl | `https://...` | optional |
@@ -414,36 +396,15 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Sheet: `recurring_rules` (Optional)
+### ~~Sheet: `recurring_rules`~~ ❌ REMOVED
 
-| Column | Example |
-|--------|---------|
-| ruleId | `rr_...` |
-| userId | `usr_...` |
-| type | `income` / `expense` |
-| amount | `500` |
-| categoryId | `cat_...` |
-| accountId | `acc_...` |
-| frequency | `monthly` / `weekly` |
-| nextRunDate | `2026-02-01` |
-| note | `Rent` |
-| active | `true` |
-| createdAt | ISO |
-| updatedAt | ISO |
+> **Status**: Removed from implementation.
 
 ---
 
-### Sheet: `budgets` (Optional)
+### ~~Sheet: `budgets`~~ ❌ REMOVED
 
-| Column | Example |
-|--------|---------|
-| budgetId | `bud_...` |
-| userId | `usr_...` |
-| month | `2026-01` |
-| categoryId | `cat_...` |
-| limitAmount | `200` |
-| createdAt | ISO |
-|                        | ISO |
+> **Status**: Removed from implementation.
 
 ---
 
@@ -623,42 +584,23 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Phase 5: Advanced Features (Days 13-16)
+### Phase 5: Polish & Deploy (Days 13-16)
 
-- [ ] **Step 5.1**: Budgets
-  - Budget creation form
-  - Budget progress indicators
-  - Alerts/notifications
-
-- [ ] **Step 5.2**: Recurring Transactions
-  - Rule creation UI
-  - Cron job / serverless function for auto-generation
-  - Rule management
-
-- [ ] **Step 5.3**: Export/Import
-  - CSV export (filtered)
-  - CSV import with validation
-  - Download templates
-
----
-
-### Phase 6: Polish & Deploy (Days 17-20)
-
-- [ ] **Step 6.1**: Security Review
+- [ ] **Step 5.1**: Security Review
   - Rate limiting
   - Input validation
   - userId checks on all APIs
 
-- [ ] **Step 6.2**: Performance
+- [ ] **Step 5.2**: Performance
   - Caching strategies
   - Optimistic updates
   - Loading states
 
-- [ ] **Step 6.3**: Mobile Responsiveness
+- [ ] **Step 5.3**: Mobile Responsiveness
   - Test all pages on mobile
   - Touch-friendly interactions
 
-- [ ] **Step 6.4**: Deployment
+- [ ] **Step 5.4**: Deployment
   - Deploy to Vercel
   - Configure production env vars
   - Test in production
@@ -682,11 +624,7 @@ budget-tracker/
 │   │   │   │   └── page.tsx
 │   │   │   ├── transactions/
 │   │   │   │   └── page.tsx
-│   │   │   ├── accounts/
-│   │   │   │   └── page.tsx
 │   │   │   ├── categories/
-│   │   │   │   └── page.tsx
-│   │   │   ├── budgets/
 │   │   │   │   └── page.tsx
 │   │   │   ├── settings/
 │   │   │   │   └── page.tsx
@@ -697,10 +635,6 @@ budget-tracker/
 │       ├── auth/
 │       │   └── [...nextauth]/
 │       │       └── route.ts
-│       ├── accounts/
-│       │   ├── route.ts
-│       │   └── [id]/
-│       │       └── route.ts
 │       ├── categories/
 │       │   ├── route.ts
 │       │   └── [id]/
@@ -709,10 +643,6 @@ budget-tracker/
 │       │   ├── route.ts
 │       │   └── [id]/
 │       │       └── route.ts
-│       ├── budgets/
-│       │   └── route.ts
-│       └── recurring/
-│           └── route.ts
 ├── messages/                         # 🌍 i18n - Translation files
 │   ├── en.json                      # English translations
 │   └── km.json                      # Khmer translations (ភាសាខ្មែរ)
@@ -821,15 +751,9 @@ NODE_ENV=development
 | GET/POST | `/api/auth/[...nextauth]` | NextAuth handler |
 | POST | `/api/auth/register` | Email registration |
 
-### Accounts
+### ~~Accounts~~ ❌ REMOVED
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/accounts` | List user's accounts |
-| POST | `/api/accounts` | Create new account |
-| GET | `/api/accounts/[id]` | Get single account |
-| PUT | `/api/accounts/[id]` | Update account |
-| DELETE | `/api/accounts/[id]` | Delete account |
+> Feature removed from implementation.
 
 ### Categories
 
@@ -851,24 +775,15 @@ NODE_ENV=development
 | GET | `/api/transactions/export` | Export as CSV |
 | POST | `/api/transactions/import` | Import from CSV |
 
-### Budgets
+### ~~Budgets~~ ❌ REMOVED
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/budgets` | List budgets |
-| POST | `/api/budgets` | Create budget |
-| PUT | `/api/budgets/[id]` | Update budget |
-| DELETE | `/api/budgets/[id]` | Delete budget |
+> Feature removed from implementation.
 
-### Recurring Rules
+---
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/recurring` | List rules |
-| POST | `/api/recurring` | Create rule |
-| PUT | `/api/recurring/[id]` | Update rule |
-| DELETE | `/api/recurring/[id]` | Delete rule |
-| POST | `/api/recurring/run` | Execute due rules |
+### ~~Recurring Rules~~ ❌ REMOVED
+
+> Feature removed from implementation.
 
 ---
 
