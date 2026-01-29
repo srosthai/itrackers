@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 import { Icons } from '../ui/Icons';
 
 // =====================================================
 // SIDEBAR COMPONENT
 // 
 // Main navigation sidebar for the dashboard
-// Features: Collapsible on mobile, active state, hover effects
+// Features: Collapsible on mobile, active state, logout
 // =====================================================
 
 interface NavItem {
@@ -36,6 +37,22 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
     const pathname = usePathname();
+    const { data: session } = useSession();
+
+    // Get user initials for avatar
+    const getInitials = (name?: string | null) => {
+        if (!name) return 'U';
+        return name
+            .split(' ')
+            .map((n) => n[0])
+            .join('')
+            .toUpperCase()
+            .slice(0, 2);
+    };
+
+    const handleLogout = async () => {
+        await signOut({ callbackUrl: '/login' });
+    };
 
     return (
         <>
@@ -173,16 +190,30 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         {/* User Profile */}
                         <div className="mt-4 px-4 py-3 rounded-xl bg-background-tertiary">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-medium">
-                                    T
-                                </div>
+                                {session?.user?.image ? (
+                                    <img
+                                        src={session.user.image}
+                                        alt={session.user.name || 'User'}
+                                        className="w-10 h-10 rounded-full object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-medium">
+                                        {getInitials(session?.user?.name)}
+                                    </div>
+                                )}
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium text-foreground truncate">Thai</p>
-                                    <p className="text-xs text-foreground-muted truncate">thai@example.com</p>
+                                    <p className="text-sm font-medium text-foreground truncate">
+                                        {session?.user?.name || 'User'}
+                                    </p>
+                                    <p className="text-xs text-foreground-muted truncate">
+                                        {session?.user?.email || ''}
+                                    </p>
                                 </div>
                                 <button
-                                    className="p-2 rounded-lg hover:bg-background-secondary transition-colors text-foreground-muted hover:text-foreground"
+                                    onClick={handleLogout}
+                                    className="p-2 rounded-lg hover:bg-red-500/10 transition-colors text-foreground-muted hover:text-red-500"
                                     aria-label="Logout"
+                                    title="Sign out"
                                 >
                                     <Icons.Logout className="w-4 h-4" />
                                 </button>

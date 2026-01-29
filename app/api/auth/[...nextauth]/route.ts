@@ -1,8 +1,7 @@
 // =====================================================
-// LIB - BARREL EXPORT
+// NEXTAUTH API ROUTE HANDLER
 // =====================================================
 
-export * from './utils';
-export * from './constants';
-export * from './sheets';
+import { handlers } from '@/lib/auth';
 
+export const { GET, POST } = handlers;
