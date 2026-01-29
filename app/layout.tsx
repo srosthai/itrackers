@@ -34,37 +34,22 @@ export const metadata: Metadata = {
   creator: "I-Tracker",
   publisher: "I-Tracker",
   applicationName: "I-Tracker",
-  metadataBase: new URL("https://i-tracker.app"),
+  metadataBase: new URL("https://itrackers.vercel.app"),
   openGraph: {
     title: "I-Tracker | Smart Personal Finance Tracker",
     description: "Track your money, visualize spending patterns, and build your financial future. Free personal finance management made simple.",
     type: "website",
     siteName: "I-Tracker",
     locale: "en_US",
-    images: [
-      {
-        url: "/i-tracker.png",
-        width: 512,
-        height: 512,
-        alt: "I-Tracker Logo",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "I-Tracker | Smart Personal Finance Tracker",
     description: "Track your money, visualize spending patterns, and build your financial future.",
-    images: ["/i-tracker.png"],
   },
   icons: {
-    icon: [
-      { url: "/i-tracker.png", sizes: "32x32", type: "image/png" },
-      { url: "/i-tracker.png", sizes: "16x16", type: "image/png" },
-    ],
-    apple: [
-      { url: "/i-tracker.png", sizes: "180x180", type: "image/png" },
-    ],
-    shortcut: "/i-tracker.png",
+    icon: "/icon.svg",
+    apple: "/apple-icon.svg",
   },
   manifest: "/manifest.json",
   robots: {
