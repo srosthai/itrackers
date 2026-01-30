@@ -134,13 +134,6 @@ The app features a modern, mobile-first dark theme design with:
 
 ---
 
-## 📝 Documentation
-
-For detailed implementation notes, see:
-- [BUILD_PLAN.md](./BUILD_PLAN.md) - Complete build plan & architecture
-
----
-
 ## 📄 License
 
 MIT License - feel free to use for personal projects.
