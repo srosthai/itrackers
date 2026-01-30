@@ -19,6 +19,7 @@ interface Transaction {
     categoryId: string;
     categoryName?: string;
     note: string;
+    createdAt?: string;
 }
 
 interface RecentTransactionsProps {
@@ -52,10 +53,12 @@ function formatTimeAgo(dateStr: string, t: (key: string) => string, language: st
     const date = new Date(dateStr);
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffHours < 1) return t('time.justNow');
+    if (diffMinutes < 1) return t('time.justNow');
+    if (diffMinutes < 60) return `${diffMinutes}${t('time.minutesAgo')}`;
     if (diffHours < 24) return `${diffHours}${t('time.hoursAgo')}`;
     if (diffDays === 1) return t('time.yesterday');
     if (diffDays < 7) return `${diffDays} ${t('time.daysAgo')}`;
@@ -122,7 +125,7 @@ export function RecentTransactions({ transactions, limit = 5, t: externalT }: Re
                                     {tx.note || tx.categoryName || tx.categoryId || 'Transaction'}
                                 </p>
                                 <p className="text-[10px] sm:text-xs text-gray-500">
-                                    {tx.categoryName || tx.categoryId} • {formatTimeAgo(tx.date, t, language)}
+                                    {tx.categoryName || tx.categoryId} • {formatTimeAgo(tx.createdAt || tx.date, t, language)}
                                 </p>
                             </div>
 

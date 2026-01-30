@@ -19,6 +19,7 @@ export interface Transaction {
     note?: string;
     tags?: string;
     receiptUrl?: string;
+    createdAt?: string;
 }
 
 interface TransactionsStats {

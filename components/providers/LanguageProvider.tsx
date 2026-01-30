@@ -109,6 +109,7 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Time
         'time.justNow': 'Just now',
+        'time.minutesAgo': 'm ago',
         'time.hoursAgo': 'h ago',
         'time.yesterday': 'Yesterday',
         'time.daysAgo': 'days ago',
@@ -250,6 +251,7 @@ const translations: Record<Language, Record<string, string>> = {
 
         // Time
         'time.justNow': 'ឥឡូវនេះ',
+        'time.minutesAgo': 'នាទីមុន',
         'time.hoursAgo': 'ម៉ោងមុន',
         'time.yesterday': 'ម្សិលមិញ',
         'time.daysAgo': 'ថ្ងៃមុន',
