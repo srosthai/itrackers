@@ -43,15 +43,15 @@ export default function DashboardPage() {
     const totalBalance = stats?.totalBalance.amount || 0;
 
     return (
-        <div className="min-h-screen bg-[#0a0f0a]">
+        <div className="min-h-[100dvh] bg-[#0a0f0a]">
             {/* Mobile Layout */}
             <div className="lg:hidden">
-                <div className="px-4 pb-24">
-                    {/* Mobile Header - Always visible */}
-                    <MobileHeader />
+                {/* Mobile Header - Sticky with its own padding */}
+                <MobileHeader />
 
+                <div className="px-3 sm:px-4 pb-28">
                     {/* Balance Card */}
-                    <div className="mb-4">
+                    <div className="mb-3 sm:mb-4">
                         {isLoading ? (
                             <BalanceCardSkeleton />
                         ) : (
@@ -65,7 +65,7 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Stats Row */}
-                    <div className="mb-4">
+                    <div className="mb-3 sm:mb-4">
                         {isLoading ? (
                             <StatsRowSkeleton />
                         ) : (
@@ -87,7 +87,7 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Spending Chart */}
-                    <div className="mb-4">
+                    <div className="mb-3 sm:mb-4">
                         {isLoading ? (
                             <ChartSkeleton />
                         ) : (
@@ -172,53 +172,56 @@ function DesktopDashboard({
                 <p className="text-gray-500">{currentMonth}</p>
             </div>
 
-            {/* Top Row: Balance + Stats */}
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
-                {/* Balance Card - Takes 1 column */}
-                <div className="xl:col-span-1">
-                    {isLoading ? (
-                        <BalanceCardSkeleton />
-                    ) : (
-                        <BalanceCard
-                            balance={totalBalance}
-                            showBalance={showBalance}
-                            onToggleVisibility={toggleBalanceVisibility}
-                            isPremium={false}
-                        />
-                    )}
-                </div>
+            {/* Top Row: Balance + Stats - 4 equal columns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                {/* Balance Card */}
+                {isLoading ? (
+                    <StatCardSkeleton />
+                ) : (
+                    <StatCard
+                        label={t('dashboard.totalBalance')}
+                        amount={totalBalance}
+                        type="balance"
+                        showBalance={showBalance}
+                        onToggleVisibility={toggleBalanceVisibility}
+                    />
+                )}
 
-                {/* Stats - Takes 2 columns */}
-                <div className="xl:col-span-2">
-                    {isLoading ? (
-                        <div className="grid grid-cols-3 gap-4 h-full">
-                            {[1, 2, 3].map((i) => (
-                                <StatCardSkeleton key={i} />
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-3 gap-4 h-full">
-                            <StatCard
-                                label={t('dashboard.income')}
-                                amount={stats?.income.amount || 0}
-                                change={stats?.income.change}
-                                type="income"
-                            />
-                            <StatCard
-                                label={t('dashboard.expense')}
-                                amount={stats?.expense.amount || 0}
-                                change={stats?.expense.change}
-                                type="expense"
-                            />
-                            <StatCard
-                                label={t('dashboard.profit')}
-                                amount={stats?.netProfit.amount || 0}
-                                change={stats?.netProfit.change}
-                                type="profit"
-                            />
-                        </div>
-                    )}
-                </div>
+                {/* Income Card */}
+                {isLoading ? (
+                    <StatCardSkeleton />
+                ) : (
+                    <StatCard
+                        label={t('dashboard.income')}
+                        amount={stats?.income.amount || 0}
+                        change={stats?.income.change}
+                        type="income"
+                    />
+                )}
+
+                {/* Expense Card */}
+                {isLoading ? (
+                    <StatCardSkeleton />
+                ) : (
+                    <StatCard
+                        label={t('dashboard.expense')}
+                        amount={stats?.expense.amount || 0}
+                        change={stats?.expense.change}
+                        type="expense"
+                    />
+                )}
+
+                {/* Profit Card */}
+                {isLoading ? (
+                    <StatCardSkeleton />
+                ) : (
+                    <StatCard
+                        label={t('dashboard.profit')}
+                        amount={stats?.netProfit.amount || 0}
+                        change={stats?.netProfit.change}
+                        type="profit"
+                    />
+                )}
             </div>
 
             {/* Main Content Grid */}
@@ -258,10 +261,12 @@ interface StatCardProps {
     label: string;
     amount: number;
     change?: number | null;
-    type: 'income' | 'expense' | 'profit';
+    type: 'income' | 'expense' | 'profit' | 'balance';
+    showBalance?: boolean;
+    onToggleVisibility?: () => void;
 }
 
-function StatCard({ label, amount, change, type }: StatCardProps) {
+function StatCard({ label, amount, change, type, showBalance = true, onToggleVisibility }: StatCardProps) {
     const formattedAmount = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -272,10 +277,14 @@ function StatCard({ label, amount, change, type }: StatCardProps) {
         income: { text: 'text-[#22c55e]', bg: 'bg-[#22c55e]/10', icon: Icons.ArrowDown },
         expense: { text: 'text-[#ef4444]', bg: 'bg-[#ef4444]/10', icon: Icons.ArrowUp },
         profit: { text: 'text-white', bg: 'bg-[#3b82f6]/10', icon: Icons.TrendingUp },
+        balance: { text: 'text-white', bg: 'bg-[#22c55e]/10', icon: Icons.Wallet },
     };
 
     const config = colors[type];
     const Icon = config.icon;
+
+    const isBalance = type === 'balance';
+    const displayAmount = isBalance && !showBalance ? '••••••••' : formattedAmount;
 
     return (
         <div className="rounded-xl bg-[#0f1610] p-5 border border-[#1a2f1a] h-full flex flex-col justify-between">
@@ -286,7 +295,22 @@ function StatCard({ label, amount, change, type }: StatCardProps) {
                 </div>
             </div>
             <div>
-                <p className={`text-2xl font-bold ${config.text}`}>{formattedAmount}</p>
+                <div className="flex items-center gap-2">
+                    <p className={`text-2xl font-bold ${config.text}`}>{displayAmount}</p>
+                    {isBalance && onToggleVisibility && (
+                        <button
+                            onClick={onToggleVisibility}
+                            className="p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                            aria-label={showBalance ? 'Hide balance' : 'Show balance'}
+                        >
+                            {showBalance ? (
+                                <Icons.Eye className="w-4 h-4" />
+                            ) : (
+                                <Icons.EyeOff className="w-4 h-4" />
+                            )}
+                        </button>
+                    )}
+                </div>
                 {change !== undefined && change !== null && (
                     <p className={`text-sm mt-1 ${change >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
                         {change >= 0 ? '+' : ''}{change.toFixed(1)}% vs last month
@@ -316,20 +340,34 @@ function BalanceCardSkeleton() {
 
 function StatsRowSkeleton() {
     return (
-        <div className="grid grid-cols-3 gap-3">
-            {[1, 2, 3].map((i) => (
-                <div
-                    key={i}
-                    className="h-24 rounded-xl bg-[#0f1610] border border-[#1a2f1a] p-3 animate-pulse"
-                    style={{ animationDelay: `${i * 100}ms` }}
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 rounded-lg bg-[#1a2a1a]" />
-                        <div className="w-12 h-3 rounded bg-[#1a2a1a]" />
+        <div className="space-y-2 sm:space-y-3">
+            {/* Top row - 2 columns */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                {[1, 2].map((i) => (
+                    <div
+                        key={i}
+                        className="h-20 sm:h-24 rounded-xl bg-[#0f1610] border border-[#1a2f1a] p-3 animate-pulse"
+                        style={{ animationDelay: `${i * 100}ms` }}
+                    >
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="w-3.5 h-3.5 rounded bg-[#1a2a1a]" />
+                            <div className="w-12 h-3 rounded bg-[#1a2a1a]" />
+                        </div>
+                        <div className="w-24 h-5 rounded bg-[#1a2a1a]" />
                     </div>
-                    <div className="w-20 h-5 rounded bg-[#1a2a1a]" />
+                ))}
+            </div>
+            {/* Bottom row - full width */}
+            <div
+                className="h-20 sm:h-24 rounded-xl bg-[#0f1610] border border-[#1a2f1a] p-3 animate-pulse"
+                style={{ animationDelay: '300ms' }}
+            >
+                <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3.5 h-3.5 rounded bg-[#1a2a1a]" />
+                    <div className="w-12 h-3 rounded bg-[#1a2a1a]" />
                 </div>
-            ))}
+                <div className="w-32 h-6 rounded bg-[#1a2a1a]" />
+            </div>
         </div>
     );
 }

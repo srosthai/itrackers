@@ -195,19 +195,19 @@ export function SpendingChart({
     }, []);
 
     return (
-        <div className="rounded-2xl bg-[#0f1610] p-5 border border-[#1a2f1a]">
+        <div className="rounded-2xl bg-[#0f1610] p-4 sm:p-5 border border-[#1a2f1a]">
             {/* Header with Period Filter */}
-            <div className="flex items-center justify-between mb-4">
-                <h3 className="text-base font-semibold text-white">{t('chart.spendingTrend')}</h3>
-                <div className="flex gap-1 p-1 bg-[#1a2a1a] rounded-lg border border-[#2a3f2a]">
+            <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2">
+                <h3 className="text-sm sm:text-base font-semibold text-white">{t('chart.spendingTrend')}</h3>
+                <div className="flex gap-0.5 sm:gap-1 p-0.5 sm:p-1 bg-[#1a2a1a] rounded-lg border border-[#2a3f2a]">
                     {periods.map(p => (
                         <button
                             key={p.key}
                             onClick={() => handlePeriodChange(p.key)}
-                            className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
+                            className={`px-2 sm:px-2.5 py-1.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded-md transition-all touch-manipulation ${
                                 period === p.key
                                     ? 'bg-[#22c55e] text-[#0a0f0a]'
-                                    : 'text-gray-400 hover:text-white'
+                                    : 'text-gray-400 hover:text-white active:text-white'
                             }`}
                         >
                             {p.label}
@@ -217,15 +217,15 @@ export function SpendingChart({
             </div>
 
             {/* Amount and Change */}
-            <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-3xl font-bold text-white">{formattedAmount}</span>
-                <span className={`text-sm font-medium ${change <= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
+            <div className="flex items-baseline gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
+                <span className="text-2xl sm:text-3xl font-bold text-white">{formattedAmount}</span>
+                <span className={`text-xs sm:text-sm font-medium ${change <= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
                     {change === 0 ? '' : change > 0 ? '+' : ''}{change.toFixed(1)}% {getComparisonText()}
                 </span>
             </div>
 
             {/* Line Chart */}
-            <div className="relative h-24 mb-4" onMouseLeave={handleHideTooltip}>
+            <div className="relative h-20 sm:h-24 mb-3 sm:mb-4" onMouseLeave={handleHideTooltip}>
                 {/* Tooltip */}
                 {tooltip && (
                     <div
@@ -366,7 +366,7 @@ export function SpendingChart({
             </div>
 
             {/* Labels */}
-            <div className={`flex justify-between text-xs text-gray-500 ${period === 'year' ? 'px-2' : ''}`}>
+            <div className={`flex justify-between text-[10px] sm:text-xs text-gray-500 ${period === 'year' ? 'px-1 sm:px-2' : ''}`}>
                 {displayLabels.map((label, i) => (
                     <span key={i} className="truncate">{label}</span>
                 ))}

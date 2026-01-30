@@ -75,12 +75,12 @@ export function CategoryModal({ isOpen, onClose, onSave, categories, initialData
 
     return (
         <div
-            className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
             aria-labelledby="category-modal-title"
         >
-            <div className="w-full sm:max-w-md bg-[#0a0f0a] border border-[#1a2f1a] rounded-t-2xl sm:rounded-2xl p-4 pb-24 sm:p-6 sm:pb-6 shadow-2xl animate-scale-up max-h-[90vh] overflow-y-auto overscroll-contain">
+            <div className="w-full max-w-md bg-[#0a0f0a] border border-[#1a2f1a] rounded-2xl p-5 sm:p-6 shadow-2xl animate-scale-up max-h-[85vh] overflow-y-auto overscroll-contain">
                 <div className="flex items-center justify-between mb-4 sm:mb-6">
                     <h2 id="category-modal-title" className="text-lg sm:text-xl font-bold text-white">
                         {initialData ? t('categories.editCategory') : t('categories.newCategory')}

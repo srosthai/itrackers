@@ -122,6 +122,10 @@ export function TransactionModal({ isOpen, onClose, onSave, initialData, default
         e.preventDefault();
         if (!amount) return;
 
+        // Validate max amount (8 digits: $99,999,999.99)
+        const numAmount = parseFloat(amount);
+        if (numAmount > 99999999.99) return;
+
         setIsSubmitting(true);
         const success = await onSave({
             type,
@@ -143,12 +147,12 @@ export function TransactionModal({ isOpen, onClose, onSave, initialData, default
 
     return (
         <div
-            className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
             aria-labelledby="transaction-modal-title"
         >
-            <div className="w-full sm:max-w-md bg-[#0a0f0a] border border-[#1a2f1a] rounded-t-2xl sm:rounded-2xl p-4 pb-24 sm:p-6 sm:pb-6 shadow-2xl animate-scale-up max-h-[90vh] overflow-y-auto overscroll-contain">
+            <div className="w-full max-w-md bg-[#0a0f0a] border border-[#1a2f1a] rounded-2xl p-5 sm:p-6 shadow-2xl animate-scale-up max-h-[85vh] overflow-y-auto overscroll-contain">
                 <div className="flex items-center justify-between mb-4 sm:mb-6">
                     <h2 id="transaction-modal-title" className="text-lg sm:text-xl font-bold text-white">
                         {initialData ? t('transactions.editTransaction') : t('transactions.newTransaction')}
@@ -172,9 +176,9 @@ export function TransactionModal({ isOpen, onClose, onSave, initialData, default
                                 role="radio"
                                 aria-checked={type === txType}
                                 onClick={() => handleTypeChange(txType)}
-                                className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${type === txType
+                                className={`flex-1 py-2.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg transition-colors touch-manipulation ${type === txType
                                     ? (txType === 'expense' ? 'bg-red-500/20 text-red-500' : 'bg-green-500/20 text-green-500')
-                                    : 'text-gray-400 hover:text-white'
+                                    : 'text-gray-400 hover:text-white active:text-white'
                                     }`}
                             >
                                 {t(`transactions.${txType}`)}
@@ -193,9 +197,15 @@ export function TransactionModal({ isOpen, onClose, onSave, initialData, default
                                 id="amount-input"
                                 type="number"
                                 min="0"
+                                max="99999999.99"
                                 step="0.01"
                                 value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    // Prevent values over 8 digits (99,999,999.99)
+                                    if (parseFloat(val) > 99999999.99) return;
+                                    setAmount(val);
+                                }}
                                 placeholder="0.00"
                                 className="w-full h-11 sm:h-12 pl-8 pr-4 bg-[#1a2a1a] border border-[#2a3f2a] rounded-xl text-white text-lg font-bold focus:border-[#22c55e] focus:outline-none"
                                 autoFocus
@@ -262,18 +272,18 @@ export function TransactionModal({ isOpen, onClose, onSave, initialData, default
                     </div>
 
                     {/* Actions */}
-                    <div className="flex gap-3 pt-3 sm:pt-2">
+                    <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-2">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex-1 h-12 sm:h-14 rounded-xl border border-[#2a3f2a] text-gray-400 hover:text-white font-semibold text-base active:scale-[0.98] transition-transform"
+                            className="flex-1 h-11 sm:h-14 rounded-xl border border-[#2a3f2a] text-gray-400 hover:text-white active:text-white font-semibold text-sm sm:text-base active:scale-[0.98] transition-transform touch-manipulation"
                         >
                             {t('common.cancel')}
                         </button>
                         <button
                             type="submit"
                             disabled={isSubmitting || !amount}
-                            className="flex-1 h-12 sm:h-14 rounded-xl bg-[#22c55e] text-[#0a0f0a] font-bold text-base hover:bg-[#16a34a] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-transform"
+                            className="flex-1 h-11 sm:h-14 rounded-xl bg-[#22c55e] text-[#0a0f0a] font-bold text-sm sm:text-base hover:bg-[#16a34a] active:bg-[#16a34a] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-transform touch-manipulation"
                         >
                             {isSubmitting ? t('transactions.saving') : t('common.save')}
                         </button>

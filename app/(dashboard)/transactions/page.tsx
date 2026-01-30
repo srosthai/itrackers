@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useTransactions, useCategories, Transaction } from '@/hooks';
 import { TransactionFilterBar, TransactionItem, TransactionModal, TransactionsSkeleton } from '@/components/transactions';
 import { Icons, ConfirmModal } from '@/components/ui';
-import { BottomNavigation } from '@/components/dashboard';
+import { BottomNavigation, FloatingActionButton } from '@/components/dashboard';
 import { useLanguage } from '@/components/providers';
 
 function TransactionsContent() {
@@ -71,16 +71,10 @@ function TransactionsContent() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0a0f0a] flex flex-col">
+        <div className="min-h-[100dvh] bg-[#0a0f0a] flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-20">
-                <h1 className="text-xl font-bold text-white">{t('transactions.title')}</h1>
-                <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="w-9 h-9 rounded-lg bg-[#22c55e] flex items-center justify-center text-[#0a0f0a] hover:bg-[#16a34a] transition-colors"
-                >
-                    <Icons.Plus className="w-5 h-5" />
-                </button>
+            <div className="flex items-center px-3 sm:px-4 py-3 sm:py-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-20 safe-area-top">
+                <h1 className="text-lg sm:text-xl font-bold text-white">{t('transactions.title')}</h1>
             </div>
 
             <TransactionFilterBar
@@ -97,17 +91,17 @@ function TransactionsContent() {
                 categories={categoriesWithSubs}
             />
 
-            <div className="flex-1 px-2 pb-24 overflow-y-auto">
+            <div className="flex-1 px-1.5 sm:px-2 pb-28 sm:pb-24 overflow-y-auto">
                 {isLoading ? (
                     <TransactionsSkeleton />
                 ) : Object.keys(groupedTransactions).length > 0 ? (
-                    <div className="space-y-6 pt-4">
+                    <div className="space-y-4 sm:space-y-6 pt-3 sm:pt-4">
                         {Object.entries(groupedTransactions).map(([dateLabel, txs]) => (
                             <div key={dateLabel}>
-                                <h3 className="px-6 py-2 text-[11px] font-bold text-gray-500 uppercase tracking-widest sticky top-0 bg-[#0a0f0a] z-0">
+                                <h3 className="px-4 sm:px-6 py-1.5 sm:py-2 text-[10px] sm:text-[11px] font-bold text-gray-500 uppercase tracking-widest sticky top-0 bg-[#0a0f0a] z-0">
                                     {dateLabel}
                                 </h3>
-                                <div className="space-y-1">
+                                <div className="space-y-0.5 sm:space-y-1">
                                     {txs.map(tx => (
                                         <TransactionItem
                                             key={tx.transactionId}
@@ -125,15 +119,15 @@ function TransactionsContent() {
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col items-center justify-center py-20 text-center">
-                        <div className="w-16 h-16 rounded-full bg-[#1a2a1a] flex items-center justify-center mb-4">
-                            <Icons.Receipt className="w-8 h-8 text-gray-600" />
+                    <div className="flex flex-col items-center justify-center py-16 sm:py-20 text-center px-4">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1a2a1a] flex items-center justify-center mb-3 sm:mb-4">
+                            <Icons.Receipt className="w-7 h-7 sm:w-8 sm:h-8 text-gray-600" />
                         </div>
-                        <p className="text-white font-medium mb-1">{t('transactions.noTransactions')}</p>
-                        <p className="text-sm text-gray-500 mb-4">{t('transactions.tryAdjusting')}</p>
+                        <p className="text-white font-medium mb-1 text-sm sm:text-base">{t('transactions.noTransactions')}</p>
+                        <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">{t('transactions.tryAdjusting')}</p>
                         <button
                             onClick={() => setIsModalOpen(true)}
-                            className="px-6 py-2 bg-[#22c55e] text-[#0a0f0a] font-bold rounded-xl"
+                            className="px-5 sm:px-6 py-2 bg-[#22c55e] text-[#0a0f0a] font-bold rounded-xl text-sm sm:text-base active:bg-[#16a34a] transition-colors touch-manipulation"
                         >
                             {t('transactions.addTransaction')}
                         </button>
@@ -175,6 +169,7 @@ function TransactionsContent() {
             />
 
             <div className="lg:hidden">
+                <FloatingActionButton />
                 <BottomNavigation />
             </div>
         </div>

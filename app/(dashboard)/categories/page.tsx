@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Icons, ConfirmModal } from '@/components/ui';
 import { useCategories, Category } from '@/hooks';
 import { CategoryListItem, CategoryModal } from '@/components/categories';
-import { BottomNavigation } from '@/components/dashboard';
+import { BottomNavigation, FloatingActionButton } from '@/components/dashboard';
 import { useLanguage } from '@/components/providers';
 
 type CategoryTab = 'expense' | 'income';
@@ -66,59 +66,53 @@ export default function CategoriesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0a0f0a] flex flex-col">
+        <div className="min-h-[100dvh] bg-[#0a0f0a] flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-10">
-                <h1 className="text-xl font-bold text-white">{t('categories.title')}</h1>
-                <button
-                    onClick={handleAdd}
-                    className="w-9 h-9 rounded-lg bg-[#22c55e] flex items-center justify-center text-[#0a0f0a] hover:bg-[#16a34a] transition-colors"
-                >
-                    <Icons.Plus className="w-5 h-5" />
-                </button>
+            <div className="flex items-center px-3 sm:px-4 py-3 sm:py-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-10 safe-area-top">
+                <h1 className="text-lg sm:text-xl font-bold text-white">{t('categories.title')}</h1>
             </div>
 
-            <div className="flex-1 px-4 pb-24 overflow-y-auto">
+            <div className="flex-1 px-3 sm:px-4 pb-28 sm:pb-24 overflow-y-auto">
                 {/* Tab Toggle */}
-                <div className="flex p-1 bg-[#1a2a1a] rounded-xl mb-4 border border-[#2a3f2a]">
+                <div className="flex p-1 bg-[#1a2a1a] rounded-xl mb-3 sm:mb-4 border border-[#2a3f2a]">
                     <button
                         onClick={() => setActiveTab('expense')}
-                        className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 text-xs sm:text-sm font-medium rounded-lg transition-all touch-manipulation ${
                             activeTab === 'expense'
                                 ? 'bg-[#ef4444]/20 text-[#ef4444]'
-                                : 'text-gray-400 hover:text-white'
+                                : 'text-gray-400 hover:text-white active:text-white'
                         }`}
                     >
-                        <Icons.ArrowUp className="w-4 h-4" />
+                        <Icons.ArrowUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         {t('transactions.expense')}
                     </button>
                     <button
                         onClick={() => setActiveTab('income')}
-                        className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                        className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 text-xs sm:text-sm font-medium rounded-lg transition-all touch-manipulation ${
                             activeTab === 'income'
                                 ? 'bg-[#22c55e]/20 text-[#22c55e]'
-                                : 'text-gray-400 hover:text-white'
+                                : 'text-gray-400 hover:text-white active:text-white'
                         }`}
                     >
-                        <Icons.ArrowDown className="w-4 h-4" />
+                        <Icons.ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         {t('transactions.income')}
                     </button>
                 </div>
 
                 {/* Search */}
-                <div className="relative mb-4">
-                    <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <div className="relative mb-3 sm:mb-4">
+                    <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                     <input
                         type="text"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder={t('categories.search')}
-                        className="w-full h-12 pl-10 pr-4 bg-[#1a2a1a] text-white rounded-xl border border-[#2a3f2a] focus:border-[#22c55e] focus:outline-none placeholder:text-gray-500 text-sm transition-all shadow-inner"
+                        className="w-full h-10 sm:h-12 pl-9 sm:pl-10 pr-4 bg-[#1a2a1a] text-white rounded-xl border border-[#2a3f2a] focus:border-[#22c55e] focus:outline-none placeholder:text-gray-500 text-xs sm:text-sm transition-all shadow-inner"
                     />
                 </div>
 
                 {/* Category List */}
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                     {isLoading ? (
                         // Skeleton items while loading
                         Array.from({ length: 5 }).map((_, i) => (
@@ -134,19 +128,19 @@ export default function CategoriesPage() {
                             />
                         ))
                     ) : (
-                        <div className="flex flex-col items-center justify-center py-12 text-center">
-                            <div className="w-16 h-16 rounded-full bg-[#1a2a1a] flex items-center justify-center mb-4">
-                                <Icons.Tag className="w-8 h-8 text-gray-600" />
+                        <div className="flex flex-col items-center justify-center py-10 sm:py-12 text-center px-4">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1a2a1a] flex items-center justify-center mb-3 sm:mb-4">
+                                <Icons.Tag className="w-7 h-7 sm:w-8 sm:h-8 text-gray-600" />
                             </div>
-                            <p className="text-white font-medium mb-1">{t('categories.noCategories')}</p>
-                            <p className="text-sm text-gray-500 mb-4">
+                            <p className="text-white font-medium mb-1 text-sm sm:text-base">{t('categories.noCategories')}</p>
+                            <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
                                 {activeTab === 'expense'
                                     ? 'Add expense categories to organize your spending'
                                     : 'Add income categories to track your earnings'}
                             </p>
                             <button
                                 onClick={handleAdd}
-                                className="px-6 py-2 bg-[#22c55e] text-[#0a0f0a] font-bold rounded-xl"
+                                className="px-5 sm:px-6 py-2 bg-[#22c55e] text-[#0a0f0a] font-bold rounded-xl text-sm sm:text-base active:bg-[#16a34a] transition-colors touch-manipulation"
                             >
                                 {t('categories.add')} {activeTab === 'expense' ? t('transactions.expense') : t('transactions.income')}
                             </button>
@@ -183,6 +177,7 @@ export default function CategoriesPage() {
 
             {/* Mobile Nav */}
             <div className="lg:hidden">
+                <FloatingActionButton onClick={handleAdd} />
                 <BottomNavigation />
             </div>
         </div>

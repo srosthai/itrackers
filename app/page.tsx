@@ -16,27 +16,27 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#0a0f0a] flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#0a0f0a]/80 backdrop-blur-lg border-b border-[#1a2f1a]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+      <header className="sticky top-0 z-50 bg-[#0a0f0a]/80 backdrop-blur-lg border-b border-[#1a2f1a] safe-area-top">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6">
+          <div className="flex items-center justify-between h-14 sm:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2 shrink-0">
               <Image
                 src="/i-tracker.png"
                 alt="I-Tracker"
                 width={180}
                 height={50}
-                className="h-10 sm:h-12 w-auto"
+                className="h-8 sm:h-12 w-auto"
                 priority
               />
             </Link>
 
             {/* Navigation */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1 sm:gap-3">
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors touch-manipulation"
                 aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
@@ -44,13 +44,13 @@ export default function HomePage() {
 
               <Link
                 href="/login"
-                className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-colors touch-manipulation"
               >
                 Sign In
               </Link>
               <Link
                 href="/register"
-                className="px-4 py-2 bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0f0a] text-sm font-semibold rounded-lg transition-all hover:shadow-lg hover:shadow-[#22c55e]/20"
+                className="px-3 sm:px-4 py-2 bg-[#22c55e] hover:bg-[#16a34a] text-[#0a0f0a] text-xs sm:text-sm font-semibold rounded-lg transition-all hover:shadow-lg hover:shadow-[#22c55e]/20 touch-manipulation"
               >
                 Get Started
               </Link>

@@ -111,26 +111,26 @@ export function TransactionItem({ note, categoryName, amount, type, date, onEdit
     }
 
     return (
-        <div className="flex items-center gap-4 py-4 px-4 hover:bg-[#1a2a1a]/50 transition-colors rounded-xl mx-2 cursor-pointer relative group">
+        <div className="flex items-center gap-3 sm:gap-4 py-3 sm:py-4 px-3 sm:px-4 hover:bg-[#1a2a1a]/50 active:bg-[#1a2a1a]/50 transition-colors rounded-xl mx-1.5 sm:mx-2 cursor-pointer relative group touch-manipulation">
             {/* Icon */}
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${bgClass}`}>
-                <Icon className={`w-6 h-6 ${iconClass}`} />
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 ${bgClass}`}>
+                <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${iconClass}`} />
             </div>
 
             {/* Details */}
             <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-white truncate mb-0.5">
+                <p className="text-xs sm:text-sm font-semibold text-white truncate mb-0.5">
                     {note || categoryName}
                 </p>
-                <p className="text-xs text-gray-500 truncate">
+                <p className="text-[10px] sm:text-xs text-gray-500 truncate">
                     {categoryName}{formattedDate && ` · ${formattedDate}`}
                 </p>
             </div>
 
             {/* Amount & Menu */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
                 <div className="text-right shrink-0">
-                    <p className={`text-sm font-semibold ${isIncome ? 'text-[#22c55e]' : 'text-red-500'}`}>
+                    <p className={`text-xs sm:text-sm font-semibold ${isIncome ? 'text-[#22c55e]' : 'text-red-500'}`}>
                         {isIncome ? '+' : '-'}{formattedAmount}
                     </p>
                 </div>
@@ -140,9 +140,9 @@ export function TransactionItem({ note, categoryName, amount, type, date, onEdit
                 <button
                     ref={buttonRef}
                     onClick={handleToggleMenu}
-                    className={`p-2 rounded-full hover:bg-white/10 text-gray-500 hover:text-white transition-colors ${showMenu ? 'bg-white/10 text-white' : ''}`}
+                    className={`p-1.5 sm:p-2 rounded-full hover:bg-white/10 active:bg-white/10 text-gray-500 hover:text-white active:text-white transition-colors touch-manipulation ${showMenu ? 'bg-white/10 text-white' : ''}`}
                 >
-                    <Icons.DotsVertical className="w-5 h-5" />
+                    <Icons.DotsVertical className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
             </div>
 

@@ -48,13 +48,13 @@ export function BalanceCard({
                 </div>
 
                 {/* Balance Amount */}
-                <div className="flex items-center gap-3">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                <div className="flex items-center gap-2 sm:gap-3">
+                    <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
                         {showBalance ? formattedBalance : '••••••••'}
                     </h2>
                     <button
                         onClick={onToggleVisibility}
-                        className="p-1.5 rounded-full hover:bg-white/10 transition-colors text-gray-400 hover:text-white"
+                        className="p-2 rounded-full hover:bg-white/10 active:bg-white/20 transition-colors text-gray-400 hover:text-white touch-manipulation"
                         aria-label={showBalance ? 'Hide balance' : 'Show balance'}
                     >
                         {showBalance ? (

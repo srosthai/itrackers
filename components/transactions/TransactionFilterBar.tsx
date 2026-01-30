@@ -216,14 +216,14 @@ function PeriodFilterDropdown({
                 ref={buttonRef}
                 type="button"
                 onClick={handleToggle}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-colors whitespace-nowrap ${isActive
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2 rounded-full border text-xs sm:text-sm transition-colors whitespace-nowrap touch-manipulation ${isActive
                     ? 'bg-[#22c55e]/10 border-[#22c55e] text-[#22c55e]'
-                    : 'bg-[#1a2a1a] border-[#2a3f2a] text-gray-300 hover:border-gray-500'
+                    : 'bg-[#1a2a1a] border-[#2a3f2a] text-gray-300 hover:border-gray-500 active:border-gray-500'
                     }`}
             >
-                <Icons.Calendar className="w-3.5 h-3.5" />
-                <span className="max-w-[140px] truncate">{getDisplayLabel()}</span>
-                <Icons.ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''} ${isActive ? 'text-[#22c55e]' : 'text-gray-500'}`} />
+                <Icons.Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span className="max-w-[100px] sm:max-w-[140px] truncate">{getDisplayLabel()}</span>
+                <Icons.ChevronDown className={`w-2.5 h-2.5 sm:w-3 sm:h-3 transition-transform ${isOpen ? 'rotate-180' : ''} ${isActive ? 'text-[#22c55e]' : 'text-gray-500'}`} />
             </button>
 
             {isOpen && typeof document !== 'undefined' && createPortal(
@@ -396,15 +396,15 @@ function FilterDropdown({
                 ref={buttonRef}
                 type="button"
                 onClick={handleToggle}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-colors whitespace-nowrap ${isActive
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-full border text-xs sm:text-sm transition-colors whitespace-nowrap touch-manipulation ${isActive
                         ? 'bg-[#22c55e]/10 border-[#22c55e] text-[#22c55e]'
-                        : 'bg-[#1a2a1a] border-[#2a3f2a] text-gray-300 hover:border-gray-500'
+                        : 'bg-[#1a2a1a] border-[#2a3f2a] text-gray-300 hover:border-gray-500 active:border-gray-500'
                     }`}
             >
-                <span className="max-w-[120px] truncate">
+                <span className="max-w-[80px] sm:max-w-[120px] truncate">
                     {selectedOption ? selectedOption.label : label}
                 </span>
-                <Icons.ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''} ${isActive ? 'text-[#22c55e]' : 'text-gray-500'
+                <Icons.ChevronDown className={`w-2.5 h-2.5 sm:w-3 sm:h-3 transition-transform ${isOpen ? 'rotate-180' : ''} ${isActive ? 'text-[#22c55e]' : 'text-gray-500'
                     }`} />
             </button>
 
@@ -543,30 +543,30 @@ export function TransactionFilterBar({
     }, [filters.categoryId, parentCategories]);
 
     return (
-        <div className="space-y-4 px-4 py-2 sticky top-14 bg-[#0a0f0a] z-10 pb-4 border-b border-[#1a2f1a]">
+        <div className="space-y-3 sm:space-y-4 px-3 sm:px-4 py-2 sticky top-12 sm:top-14 bg-[#0a0f0a] z-10 pb-3 sm:pb-4 border-b border-[#1a2f1a]">
             {/* Search Bar */}
             <div className="relative">
-                <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                 <input
                     type="text"
                     value={search}
                     onChange={(e) => onSearchChange(e.target.value)}
                     placeholder="Search transactions"
-                    className="w-full h-11 pl-10 pr-4 bg-[#1a2a1a] text-white rounded-xl border border-[#2a3f2a] focus:border-[#22c55e] focus:outline-none placeholder:text-gray-500 text-sm transition-all shadow-inner"
+                    className="w-full h-10 sm:h-11 pl-9 sm:pl-10 pr-4 bg-[#1a2a1a] text-white rounded-xl border border-[#2a3f2a] focus:border-[#22c55e] focus:outline-none placeholder:text-gray-500 text-xs sm:text-sm transition-all shadow-inner"
                 />
             </div>
 
             {/* Filter Chips - Scrollable Row */}
-            <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-1 min-h-[42px]">
+            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar pb-1 min-h-[38px] sm:min-h-[42px]">
                 {/* Clear Filters Button - Only show when filters are active */}
                 {hasActiveFilters && (
                     <button
                         type="button"
                         onClick={handleClearFilters}
-                        className="flex items-center justify-center w-9 h-9 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 transition-colors hover:bg-red-500/20 hover:border-red-500/50 shrink-0"
+                        className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 transition-colors hover:bg-red-500/20 active:bg-red-500/20 hover:border-red-500/50 shrink-0 touch-manipulation"
                         title="Clear filters"
                     >
-                        <Icons.X className="w-4 h-4" />
+                        <Icons.X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </button>
                 )}
 
