@@ -68,8 +68,8 @@ export default function CategoriesPage() {
     return (
         <div className="min-h-[100dvh] bg-[#0a0f0a] flex flex-col">
             {/* Header */}
-            <div className="flex items-center px-3 sm:px-4 py-3 sm:py-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-10 safe-area-top">
-                <h1 className="text-lg sm:text-xl font-bold text-white">{t('categories.title')}</h1>
+            <div className="flex items-center p-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-10">
+                <h1 className="text-xl font-bold text-white">{t('categories.title')}</h1>
             </div>
 
             <div className="flex-1 px-3 sm:px-4 pb-28 sm:pb-24 overflow-y-auto">

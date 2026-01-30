@@ -73,8 +73,8 @@ function TransactionsContent() {
     return (
         <div className="min-h-[100dvh] bg-[#0a0f0a] flex flex-col">
             {/* Header */}
-            <div className="flex items-center px-3 sm:px-4 py-3 sm:py-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-20 safe-area-top">
-                <h1 className="text-lg sm:text-xl font-bold text-white">{t('transactions.title')}</h1>
+            <div className="flex items-center p-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-20">
+                <h1 className="text-xl font-bold text-white">{t('transactions.title')}</h1>
             </div>
 
             <TransactionFilterBar

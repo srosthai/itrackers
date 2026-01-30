@@ -26,7 +26,7 @@ export function MobileHeader() {
         .slice(0, 2);
 
     return (
-        <div className="flex items-center justify-between px-3 sm:px-4 py-3 sm:py-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-10 safe-area-top">
+        <div className="flex items-center justify-between p-4 sticky top-0 bg-[#0a0f0a]/95 backdrop-blur z-10">
             {/* User Info */}
             <div className="flex items-center gap-2.5 sm:gap-3">
                 {userImage ? (
