@@ -25,16 +25,8 @@
 
 A personal budget tracker application that allows users to:
 - Track income and expenses
-- ~~Manage multiple accounts/wallets~~ *(Removed - simplified to single wallet)*
 - View financial dashboards
-- Set budgets and recurring transactions
-- Export/import transaction data
-
-**Removed Features:**
-- ❌ Accounts/Wallets management
-- ❌ Smart Rules (auto-categorization)
-- ❌ Notifications
-- ❌ Transfers between accounts
+- Categorize transactions
 
 **Key Constraint**: Using Google Sheets as the database for simplicity and accessibility.
 
@@ -90,22 +82,7 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### ~~Feature 3 — Accounts / Wallets~~ ❌ REMOVED
-
-> **Status**: Removed from implementation to simplify the app.
-> The app now uses a single implicit wallet model.
-
-~~**What it does:**~~
-~~- Create accounts: Cash, ABA, ACLEDA, eWallet, Credit Card~~
-~~- Track current balance (computed from transactions)~~
-~~- Transfer between accounts~~
-
-~~**Sheets Involved:**~~
-~~- `accounts`~~
-
----
-
-### Feature 4 — Categories (Income + Expense)
+### Feature 3 — Categories (Income + Expense)
 
 **What it does:**
 - Default categories + user custom categories
@@ -119,13 +96,11 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Feature 5 — Transactions (Income / Expense / Transfer)
+### Feature 4 — Transactions (Income / Expense)
 
 **What it does:**
 - Add income/expense with:
-  - date, amount, category, account, note, tags
-- Transfer:
-  - fromAccount → toAccount
+  - date, amount, category, note, tags
 - Edit / delete transactions
 - Optional receipt upload link
 
@@ -134,7 +109,7 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Feature 6 — Dashboard (Profit Calculation)
+### Feature 5 — Dashboard (Profit Calculation)
 
 **What it shows (for selected period):**
 - Total Income
@@ -148,14 +123,13 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Feature 7 — Filters & Search
+### Feature 6 — Filters & Search
 
 **What it does:**
 - Filter by:
   - Date range
   - Category
-  - Account
-  - Type (income/expense/transfer)
+  - Type (income/expense)
 - Search note/description
 - Sort by date/amount
 
@@ -164,25 +138,7 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### ~~Feature 8 — Recurring Transactions (Optional - Pro Feature)~~ ❌ REMOVED
-
-> **Status**: Removed from implementation.
-
----
-
-### ~~Feature 9 — Budgets (Optional)~~ ❌ REMOVED
-
-> **Status**: Removed from implementation.
-
----
-
-### ~~Feature 10 — Export / Import~~ ❌ REMOVED
-
-> **Status**: Removed from implementation.
-
----
-
-### Feature 11 — Security & Data Separation (Critical)
+### Feature 7 — Security & Data Separation (Critical)
 
 **What it does:**
 - Every row includes `userId`
@@ -195,7 +151,7 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### Feature 12 — Internationalization (i18n) 🌍
+### Feature 8 — Internationalization (i18n) 🌍
 
 **Supported Languages:**
 - 🇺🇸 **English (en)** — Default
@@ -354,12 +310,6 @@ A personal budget tracker application that allows users to:
 
 ---
 
-### ~~Sheet: `accounts`~~ ❌ REMOVED
-
-> **Status**: Removed from implementation.
-
----
-
 ### Sheet: `categories`
 
 | Column | Example |
@@ -380,31 +330,16 @@ A personal budget tracker application that allows users to:
 |--------|---------|-------|
 | transactionId | `txn_...` | UUID |
 | userId | `usr_...` | required |
-| type | `income` / `expense` | ~~transfer removed~~ |
+| type | `income` / `expense` | |
 | date | `2026-01-29` | store as ISO date |
 | amount | `12.50` | positive number |
 | currency | `USD` | |
-| ~~accountId~~ | ~~`acc_...`~~ | ~~removed~~ |
 | categoryId | `cat_...` | |
-| ~~fromAccountId~~ | ~~`acc_...`~~ | ~~removed~~ |
-| ~~toAccountId~~ | ~~`acc_...`~~ | ~~removed~~ |
 | note | `Lunch` | |
 | tags | `food,work` | comma separated |
 | receiptUrl | `https://...` | optional |
 | createdAt | ISO | |
 | updatedAt | ISO | |
-
----
-
-### ~~Sheet: `recurring_rules`~~ ❌ REMOVED
-
-> **Status**: Removed from implementation.
-
----
-
-### ~~Sheet: `budgets`~~ ❌ REMOVED
-
-> **Status**: Removed from implementation.
 
 ---
 
@@ -475,11 +410,8 @@ A personal budget tracker application that allows users to:
   - Create new spreadsheet
   - Create all sheets with correct columns:
     - `users`
-    - `accounts`
     - `categories`
     - `transactions`
-    - `recurring_rules` (optional)
-    - `budgets` (optional)
 
 - [ ] **Step 1.4**: Setup environment variables
   - Create `.env.local`
@@ -529,18 +461,12 @@ A personal budget tracker application that allows users to:
     - `updateRow(sheetName, rowIndex, data)`
     - `deleteRow(sheetName, rowIndex)`
 
-- [ ] **Step 3.2**: Build API Routes
-  - `POST /api/accounts` - Create account
-  - `GET /api/accounts` - List accounts
-  - `PUT /api/accounts/[id]` - Update account
-  - `DELETE /api/accounts/[id]` - Delete account
-
-- [ ] **Step 3.3**: Categories API
+- [ ] **Step 3.2**: Categories API
   - `GET /api/categories`
   - `POST /api/categories`
   - Seed default categories
 
-- [ ] **Step 3.4**: Transactions API
+- [ ] **Step 3.3**: Transactions API
   - `POST /api/transactions`
   - `GET /api/transactions` (with filters)
   - `PUT /api/transactions/[id]`
@@ -567,17 +493,12 @@ A personal budget tracker application that allows users to:
   - Edit/Delete functionality
   - Search & sort
 
-- [ ] **Step 4.4**: Accounts Page
-  - Account list with balances
-  - Add/Edit account modal
-  - Transfer between accounts
-
-- [ ] **Step 4.5**: Categories Page
+- [ ] **Step 4.4**: Categories Page
   - Category management
   - Add custom categories
   - Parent/child relationships
 
-- [ ] **Step 4.6**: Settings Page
+- [ ] **Step 4.5**: Settings Page
   - Profile settings
   - Currency preference
   - Timezone settings
@@ -656,7 +577,6 @@ budget-tracker/
 │   │   └── ...
 │   ├── forms/
 │   │   ├── TransactionForm.tsx
-│   │   ├── AccountForm.tsx
 │   │   └── ...
 │   ├── charts/
 │   │   ├── CashflowChart.tsx
@@ -677,7 +597,6 @@ budget-tracker/
 │   └── navigation.ts                # Localized navigation helpers
 ├── types/
 │   ├── user.ts
-│   ├── account.ts
 │   ├── transaction.ts
 │   └── ...
 ├── hooks/
@@ -751,10 +670,6 @@ NODE_ENV=development
 | GET/POST | `/api/auth/[...nextauth]` | NextAuth handler |
 | POST | `/api/auth/register` | Email registration |
 
-### ~~Accounts~~ ❌ REMOVED
-
-> Feature removed from implementation.
-
 ### Categories
 
 | Method | Endpoint | Description |
@@ -774,16 +689,6 @@ NODE_ENV=development
 | DELETE | `/api/transactions/[id]` | Delete transaction |
 | GET | `/api/transactions/export` | Export as CSV |
 | POST | `/api/transactions/import` | Import from CSV |
-
-### ~~Budgets~~ ❌ REMOVED
-
-> Feature removed from implementation.
-
----
-
-### ~~Recurring Rules~~ ❌ REMOVED
-
-> Feature removed from implementation.
 
 ---
 

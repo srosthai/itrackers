@@ -16,7 +16,6 @@ A mobile-first personal finance application built with Next.js 16, Auth.js, and 
 - 📊 **Dashboard** - View total income, expenses, and net profit at a glance
 - 💸 **Transactions** - Add, edit, and delete income/expense records
 - 🏷️ **Categories** - Organize transactions with custom categories
-- 📅 **Recurring Rules** - Set up automatic recurring transactions
 - 🔐 **Authentication** - Secure login with Google OAuth or email/password
 
 ### UI/UX
@@ -24,17 +23,6 @@ A mobile-first personal finance application built with Next.js 16, Auth.js, and 
 - 🌙 **Dark theme** - Beautiful dark green color scheme
 - ⚡ **Fast & responsive** - Optimized performance
 - 🎨 **Modern UI** - Glassmorphism and smooth animations
-
----
-
-## 🚫 Removed Features
-
-The following features were removed to simplify the application:
-
-- ❌ **Accounts/Wallets** - Simplified to single wallet model
-- ❌ **Smart Rules** - Auto-categorization feature removed
-- ❌ **Notifications** - Push notifications removed
-- ❌ **Transfers** - Account-to-account transfers removed
 
 ---
 
@@ -124,8 +112,6 @@ Open [http://localhost:3000](http://localhost:3000) to view the app.
 | `users` | User accounts & preferences |
 | `categories` | Income & expense categories |
 | `transactions` | All financial transactions |
-| `recurring_rules` | Recurring transaction rules |
-| `budgets` | Monthly budget limits |
 
 ---
 
